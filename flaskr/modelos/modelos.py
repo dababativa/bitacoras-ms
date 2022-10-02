@@ -1,0 +1,32 @@
+from flask_sqlalchemy import SQLAlchemy
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
+from marshmallow import fields
+import enum
+
+
+db = SQLAlchemy()
+
+    
+class Usuario(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(50))
+    contrasena = db.Column(db.String(50))
+
+
+class UsuarioSchema(SQLAlchemyAutoSchema):
+    class Meta:
+         model = Usuario
+         include_relationships = True
+         load_instance = True
+
+class Ubicacion(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(50))
+    lat = db.Column(db.Integer)
+    lng = db.Column(db.Integer)
+
+class UbicacionSchema(SQLAlchemyAutoSchema):
+    class Meta:
+         model = Ubicacion
+         include_relationships = True
+         load_instance = True
